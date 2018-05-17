@@ -11,3 +11,16 @@ box:
       - script:
           name:maven build
           code:mvn clean assembly:assembly
+push-release:
+  steps:
+    - internal/docker-push:
+        username:$DOCKER_NAME
+        password:$DOCKER_PASSWORD
+        repository:$DOCKER_REPO
+        registry:$DOCKER_REGISTRY
+        tag:$WERCKER_GIT_BRANCH_$WECKER_GIT_COMMIT
+        working-dir:/pipeline/scource
+        ports:$PORT
+        env:PORT=$PORT
+        cmd:sh targeet/bin/start
+        
